@@ -6,7 +6,7 @@
   <link href="https://chunol.top/atom.xml" rel="self"/>
   
   <link href="https://chunol.top/"/>
-  <updated>2024-12-21T08:22:24.598Z</updated>
+  <updated>2025-03-15T03:29:35.198Z</updated>
   <id>https://chunol.top/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>原神抽卡期望</title>
+    <link href="https://chunol.top/207TV36.html"/>
+    <id>https://chunol.top/207TV36.html</id>
+    <published>2025-03-14T16:00:00.000Z</published>
+    <updated>2025-03-15T03:29:35.198Z</updated>
+    
+    <content type="html"><![CDATA[<h1>原神抽卡期望</h1><h2 id="概括">概括</h2><p><strong>结论</strong>：出金期望值为 62.29733203<br><strong>数据来源</strong>：<a href="https://www.miyoushe.com/ys/article/60774173">一文说清原神抽卡概率（附每抽对应概率表）</a></p><h2 id="简单处理">简单处理</h2><p>我将原图数据转成了 .json，以方便调用。</p><p>结构如下：</p><figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;Table 1&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;抽数&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;该次抽中概率&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.6</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;总抽中概率&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.6</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;抽数&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;该次抽中概率&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.6</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;总抽中概率&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.1964</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><h2 id="计算">计算</h2><figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;概率表.json&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> data_file:<br>    data = json.load(data_file)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">expectation</span>(<span class="hljs-params">data, i</span>):<br>    <span class="hljs-comment"># i 为抽取次数,输出对应概率</span><br>    <span class="hljs-keyword">match</span> i:<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>            Prob = <span class="hljs-number">0.6</span><br>        <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>            Prob = <span class="hljs-number">0.5964</span><br>        <span class="hljs-keyword">case</span> _:<br>            Prob = (<br>                data[<span class="hljs-string">&quot;Table 1&quot;</span>][i - <span class="hljs-number">1</span>][<span class="hljs-string">&quot;总抽中概率&quot;</span>]<br>                - data[<span class="hljs-string">&quot;Table 1&quot;</span>][i - <span class="hljs-number">2</span>][<span class="hljs-string">&quot;总抽中概率&quot;</span>]<br>            )<br>    Prob = Prob / <span class="hljs-number">100</span><br>    <span class="hljs-keyword">return</span> Prob<br><br>i = <span class="hljs-built_in">len</span>(data[<span class="hljs-string">&quot;Table 1&quot;</span>])<br>sum0 = <span class="hljs-number">0</span><br><span class="hljs-keyword">while</span> i &gt; <span class="hljs-number">0</span>:<br>    i -= <span class="hljs-number">1</span><br>    Extra_num = data[<span class="hljs-string">&quot;Table 1&quot;</span>][i][<span class="hljs-string">&quot;抽数&quot;</span>]<br>    Prob = expectation(data, i + <span class="hljs-number">1</span>)<br>    sum0 += Extra_num * Prob<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;期望为&quot;</span>, sum0)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1&gt;原神抽卡期望&lt;/h1&gt;
+&lt;h2 id=&quot;概括&quot;&gt;概括&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：出金期望值为 62.29733203&lt;br&gt;
+&lt;strong&gt;数据来源&lt;/strong&gt;：&lt;a href=&quot;https://www.miyoushe.com/ys</summary>
+      
+    
+    
+    
+    <category term="代码" scheme="https://chunol.top/categories/%E4%BB%A3%E7%A0%81/"/>
+    
+    
+    <category term="原神" scheme="https://chunol.top/tags/%E5%8E%9F%E7%A5%9E/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PowerShell：重新安装 oh-my-posh</title>
     <link href="https://chunol.top/3FMQR49.html"/>
     <id>https://chunol.top/3FMQR49.html</id>
     <published>2024-12-17T16:00:00.000Z</published>
-    <updated>2024-12-21T08:22:24.598Z</updated>
+    <updated>2025-03-15T03:29:34.168Z</updated>
     
     <content type="html"><![CDATA[<h1>PowerShell：重新安装 oh-my-posh</h1><h2 id="起因">起因</h2><p>最近打开 PowerShell 时，看到这样一条讯息：</p><p><a href="https://imgse.com/i/pAL4IVx"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s21.ax1x.com/2024/12/18/pAL4IVx.png" alt="pAL4IVx.png" data-caption="pAL4IVx.png" loading="lazy"></a></p><p>主要是说， oh-my-posh 的 PowerShell module 版本已经停止支持，并已移除了相关功能。</p><p>现在在 PowerShell 上需要使用init启动oh-my-posh。</p><p><em>详情参见<a href="https://ohmyposh.dev/docs/migrating">PowerShell module | Oh My Posh</a></em></p><h2 id="卸载">卸载</h2><h3 id="删除模块的缓存文件">删除模块的缓存文件</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Remove-Item</span> <span class="hljs-variable">$env:POSH_PATH</span> <span class="hljs-literal">-Force</span> <span class="hljs-literal">-Recurse</span><br></code></pre></td></tr></table></figure><h3 id="卸载-PowerShell-模块">卸载 PowerShell 模块</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Uninstall-Module</span> <span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> <span class="hljs-literal">-AllVersions</span><br></code></pre></td></tr></table></figure><h3 id="删除-PowerShell-模块的-PROFILE">删除 PowerShell 模块的 <code>$PROFILE</code></h3><p>打开 <code>$PROFILE</code> 文件</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">open <span class="hljs-variable">$Profile</span><br></code></pre></td></tr></table></figure><p>在该文件中删去如下命令</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Import-Module</span> <span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span><br></code></pre></td></tr></table></figure><p>如果继续使用该命令，启动时将会得到开篇的提示，且启动失败。</p><h2 id="安装">安装</h2><p>推荐 winget 和 Windows 应用商店，安装后会自动添加环境变量。</p><p>这里使用 winget 。</p><h3 id="安装-oh-my-posh-exe">安装 oh-my-posh.exe</h3><p>打开 PowerShell 并运行以下命令：</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">winget install JanDeDobbeleer.OhMyPosh <span class="hljs-literal">-s</span> winget<br></code></pre></td></tr></table></figure><p>这个命令会安装内容如下：</p><ul><li><code>oh-my-posh.exe</code>Windows 可执行文件</li><li><code>themes</code>最新的 Oh My Posh <a href="https://ohmyposh.dev/docs/themes">主题</a></li></ul><p>建议运行如下命令：</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$env:Path</span> += <span class="hljs-string">&quot;;C:\Users\user\AppData\Local\Programs\oh-my-posh\bin&quot;</span><br></code></pre></td></tr></table></figure><p>这会手动将其添加到环境变量中</p><h2 id="安装-Nerd-字体">安装 Nerd 字体</h2><p>Nerd 字体提供了大量的图标，如果不使用 Nerd 字体的话，主题可能无法正常显示。</p><p>这里介绍两种安装方式：</p><h3 id="用-oh-my-posh-安装">用 oh-my-posh 安装</h3><p><em>注：非管理员模式将安装在用户目录下，管理员模式将会安装在系统目录下。</em></p><p>你可以直接使用 oh-my-posh 中如下命令安装字体</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> font install<br></code></pre></td></tr></table></figure><p>这将显示可安装的字体列表，比如我想要安装字体<code>meslo</code></p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> font install meslo<br></code></pre></td></tr></table></figure><h3 id="直接下载字体">直接下载字体</h3><p>访问 <a href="https://www.nerdfonts.com/font-downloads">Nerd官网</a> ，安装你喜欢的字体，大部分都可预览。</p><h2 id="修改配置文件">修改配置文件</h2><h3 id="只是启用-oh-my-posh">只是启用 oh-my-posh</h3><p>打开 <code>$PROFILE</code> 文件</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">open <span class="hljs-variable">$Profile</span><br></code></pre></td></tr></table></figure><p>在该文件中加入</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 只是启用 oh-my-posh</span><br><span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> init pwsh | <span class="hljs-built_in">Invoke-Expression</span><br></code></pre></td></tr></table></figure><h3 id="选择主题">选择主题</h3><p>将刚才的配置稍作修改</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 设置 PowerShell 主题</span><br><span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> init pwsh <span class="hljs-literal">--config</span> <span class="hljs-string">&quot;<span class="hljs-variable">$env:POSH_THEMES_PATH</span>\atomic.omp.json&quot;</span> | <span class="hljs-built_in">Invoke-Expression</span><br></code></pre></td></tr></table></figure><p>其中 “$env:POSH_THEMES_PATH\atomic.omp.json“ 是对官方主题 atomic.omp.json 的调用</p><p>你可以使用如下命令来查看所有的官方主题</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-PoshThemes</span><br></code></pre></td></tr></table></figure><p>将你喜欢的主题名称，替换掉这里的 atomic 即可。</p><p>使用如下命令使配置文件立即生效</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">. <span class="hljs-variable">$PROFILE</span><br></code></pre></td></tr></table></figure><h2 id="白名单">白名单</h2><p>官方提到：<em>“由于 Oh My Posh 的频繁更新，防病毒软件偶尔会对其进行标记（误报）。 为确保 Oh My Posh 不被阻止，您可以将其报告给您最喜欢的防病毒软件作为误报或为其创建排除项。”</em></p><p>​因此，我们最好把 oh-my-posh 添加到杀毒软件的白名单。</p><p>​由于我只使用Windows10的Windows Defender，故只介绍这一个。</p><h3 id="确定位置">确定位置</h3><p>首先要获取 oh-my-posh.exe 的详细位置</p><p>执行如下命令：</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">(<span class="hljs-built_in">Get-Command</span> <span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span>).Source<br></code></pre></td></tr></table></figure><h3 id="加入白名单">加入白名单</h3><p>打开windows 安全中心 → 病毒和威胁防护 → “病毒和威胁防护”设置(管理设置) → 排除项</p><p>然后添加该文件即可</p>]]></content>
     
@@ -39,6 +66,8 @@
     <category term="代码" scheme="https://chunol.top/categories/%E4%BB%A3%E7%A0%81/"/>
     
     
+    <category term="Powershell" scheme="https://chunol.top/tags/Powershell/"/>
+    
   </entry>
   
   <entry>
@@ -46,7 +75,7 @@
     <link href="https://chunol.top/80D4Q8.html"/>
     <id>https://chunol.top/80D4Q8.html</id>
     <published>2024-08-30T16:00:00.000Z</published>
-    <updated>2024-12-18T09:38:51.622Z</updated>
+    <updated>2025-03-15T03:29:37.057Z</updated>
     
     <content type="html"><![CDATA[<h2 id="代码库">代码库</h2><p>相关代码被托管在 <a href="https://github.com/337826465/uigf2.2-to-uigf4.0-HuTao-">GitHub</a> 上，详情见README</p><h2 id="UIGF">UIGF</h2><p><a href="https://uigf.org/zh/">UIGF</a> 即统一标准化的原神数据格式 (Uniformed Interchangeable GachaLog Format standard)</p><p>通俗而言，就是用于传输记录原神祈愿记录的 json 标准</p><h2 id="起因">起因</h2><p>我以前一直在用“提瓦特小助手”的微信小程序，但那个工具导出的标准属于 UIGF-2.2 ，与大部分 PC 端工具不兼容</p><p>我在 PC 端使用的是 <a href="https://hut.ao/zh/">Snap Hutao|胡桃工具箱</a> ，本人所写程序目前仅用于在 Snap Hutao 上的实现。</p>]]></content>
     
@@ -65,88 +94,7 @@
     
     <category term="项目" scheme="https://chunol.top/tags/%E9%A1%B9%E7%9B%AE/"/>
     
-  </entry>
-  
-  <entry>
-    <title>南京研学_返程</title>
-    <link href="https://chunol.top/2G2DHH3.html"/>
-    <id>https://chunol.top/2G2DHH3.html</id>
-    <published>2023-11-21T16:00:00.000Z</published>
-    <updated>2023-12-10T13:02:41.247Z</updated>
-    
-    
-    
-    
-    <category term="旅游" scheme="https://chunol.top/categories/%E6%97%85%E6%B8%B8/"/>
-    
-    <category term="研学" scheme="https://chunol.top/categories/%E6%97%85%E6%B8%B8/%E7%A0%94%E5%AD%A6/"/>
-    
-    
-    <category term="研学" scheme="https://chunol.top/tags/%E7%A0%94%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>南京研学_第二天</title>
-    <link href="https://chunol.top/3VWTE0D.html"/>
-    <id>https://chunol.top/3VWTE0D.html</id>
-    <published>2023-11-20T16:00:00.000Z</published>
-    <updated>2023-12-10T13:02:36.264Z</updated>
-    
-    <content type="html"><![CDATA[<h1>Headline</h1><p>author: Chunol</p><p>Time: 2023.11.21</p><p>Abstract: 总统府/中山陵/音乐台</p><h1>总统府</h1>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;Headline&lt;/h1&gt;
-&lt;p&gt;author: Chunol&lt;/p&gt;
-&lt;p&gt;Time: 2023.11.21&lt;/p&gt;
-&lt;p&gt;Abstract: 总统府/中山陵/音乐台&lt;/p&gt;
-&lt;h1&gt;总统府&lt;/h1&gt;
-</summary>
-      
-    
-    
-    
-    <category term="旅游" scheme="https://chunol.top/categories/%E6%97%85%E6%B8%B8/"/>
-    
-    <category term="研学" scheme="https://chunol.top/categories/%E6%97%85%E6%B8%B8/%E7%A0%94%E5%AD%A6/"/>
-    
-    
-    <category term="研学" scheme="https://chunol.top/tags/%E7%A0%94%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>南京研学_第一天</title>
-    <link href="https://chunol.top/33XQN6N.html"/>
-    <id>https://chunol.top/33XQN6N.html</id>
-    <published>2023-11-19T16:00:00.000Z</published>
-    <updated>2023-12-10T13:02:27.452Z</updated>
-    
-    <content type="html"><![CDATA[<h1>Headline</h1><p>author: Chunol</p><p>Time: 2023.11.20</p><p>Abstract:</p><p>上午赶路，下午观科举博物馆，游夫子庙。</p><h2 id="行程">行程</h2><ul><li>学校</li><li>宁波站</li><li>南京南站</li><li>世纪缘酒店（午饭）</li><li>科举博物馆/夫子庙</li><li>绿地御豪酒店（住宿）</li></ul><p><a href="https://imgse.com/i/piU0fr4"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piU0fr4.jpg" alt="piU0fr4.jpg" data-caption="piU0fr4.jpg" loading="lazy"></a></p><h1>午饭</h1><ul><li>名称： 世纪缘酒店集团</li><li>地址： 南京市江宁区百家湖旁双龙大道1680号</li><li>餐厅</li></ul><p><a href="https://imgse.com/i/piUBKJ0"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piUBKJ0.jpg" alt="piUBKJ0.jpg" data-caption="piUBKJ0.jpg" loading="lazy"></a></p><p><a href="https://imgse.com/i/piUD90J"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piUD90J.jpg" alt="piUD90J.jpg" data-caption="piUD90J.jpg" loading="lazy"></a></p><h1>科举博物馆/夫子庙</h1><p><a href="https://imgse.com/i/piUTnRU"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piUTnRU.md.jpg" alt="piUTnRU.md.jpg" data-caption="piUTnRU.md.jpg" loading="lazy"></a></p><p><a href="https://imgse.com/i/piUTuzF"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piUTuzF.md.jpg" alt="piUTuzF.md.jpg" data-caption="piUTuzF.md.jpg" loading="lazy"></a></p><p><a href="https://imgse.com/i/piUTlL9"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piUTlL9.md.jpg" alt="piUTlL9.md.jpg" data-caption="piUTlL9.md.jpg" loading="lazy"></a></p><p><a href="https://imgse.com/i/piUT3ZR"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piUT3ZR.md.jpg" alt="piUT3ZR.md.jpg" data-caption="piUT3ZR.md.jpg" loading="lazy"></a></p><p><a href="https://imgse.com/i/piU72A1"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://z1.ax1x.com/2023/11/20/piU72A1.md.jpg" alt="piU72A1.md.jpg" data-caption="piU72A1.md.jpg" loading="lazy"></a></p><h1>住宿</h1><ul><li><p>名称： 绿地御豪酒店</p></li><li><p>环境很好，有桌子有沙发。</p></li><li><p>早上有自助餐，感觉立顿的红茶还蛮好喝。</p></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1&gt;Headline&lt;/h1&gt;
-&lt;p&gt;author: Chunol&lt;/p&gt;
-&lt;p&gt;Time: 2023.11.20&lt;/p&gt;
-&lt;p&gt;Abstract:&lt;/p&gt;
-&lt;p&gt;上午赶路，下午观科举博物馆，游夫子庙。&lt;/p&gt;
-&lt;h2 id=&quot;行程&quot;&gt;行程&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;学校&lt;</summary>
-      
-    
-    
-    
-    <category term="旅游" scheme="https://chunol.top/categories/%E6%97%85%E6%B8%B8/"/>
-    
-    <category term="研学" scheme="https://chunol.top/categories/%E6%97%85%E6%B8%B8/%E7%A0%94%E5%AD%A6/"/>
-    
-    
-    <category term="研学" scheme="https://chunol.top/tags/%E7%A0%94%E5%AD%A6/"/>
+    <category term="原神" scheme="https://chunol.top/tags/%E5%8E%9F%E7%A5%9E/"/>
     
   </entry>
   
