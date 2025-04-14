@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Chunol的博客</title>
+  
+  <subtitle>QwQ</subtitle>
+  <link href="https://chunol.top/atom.xml" rel="self"/>
+  
+  <link href="https://chunol.top/"/>
+  <updated>2025-04-14T15:13:07.882Z</updated>
+  <id>https://chunol.top/</id>
+  
+  <author>
+    <name>Chunol</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://chunol.top/undefined.html"/>
+    <id>https://chunol.top/undefined.html</id>
+    <published>2025-04-14T15:20:13.768Z</published>
+    <updated>2025-04-14T15:13:07.882Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start">Quick Start</h2><h3 id="Create-a-new-post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server">Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>原神抽卡期望</title>
+    <link href="https://chunol.top/undefined.html"/>
+    <id>https://chunol.top/undefined.html</id>
+    <published>2025-03-14T16:00:00.000Z</published>
+    <updated>2025-04-14T15:15:10.189Z</updated>
+    
+    <content type="html"><![CDATA[<h1>原神抽卡期望</h1><h2 id="概括">概括</h2><p><strong>结论</strong>：出金期望值为 62.29733203<br><strong>数据来源</strong>：</p><!-- more --><h1>原神抽卡期望</h1><h2 id="概括-2">概括</h2><p><strong>结论</strong>：出金期望值为 62.29733203<br><strong>数据来源</strong>：<a href="https://www.miyoushe.com/ys/article/60774173">一文说清原神抽卡概率（附每抽对应概率表）</a></p><h2 id="简单处理">简单处理</h2><p>我将原图数据转成了 .json，以方便调用。</p><p>结构如下：</p><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">&#123;    &quot;<span class="hljs-selector-tag">Table</span> <span class="hljs-number">1</span>&quot;: [        &#123;            &quot;抽数&quot;: <span class="hljs-number">1</span>,            <span class="hljs-string">&quot;该次抽中概率&quot;</span>: <span class="hljs-number">0.6</span>,            <span class="hljs-string">&quot;总抽中概率&quot;</span>: <span class="hljs-number">0.6</span>        &#125;,        &#123;            &quot;抽数&quot;: <span class="hljs-number">2</span>,            <span class="hljs-string">&quot;该次抽中概率&quot;</span>: <span class="hljs-number">0.6</span>,            <span class="hljs-string">&quot;总抽中概率&quot;</span>: <span class="hljs-number">1.1964</span>        &#125;    ]&#125;<br></code></pre></td></tr></table></figure><h2 id="计算">计算</h2><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">import</span> jsonwith open(<span class="hljs-string">&quot;概率表.json&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) as data_file:    data = json.load(data_file)def expectation(data, i):    # i 为抽取次数,输出对应概率    match i:        case <span class="hljs-number">1</span>:            Prob = <span class="hljs-number">0</span>.<span class="hljs-number">6</span>        case <span class="hljs-number">2</span>:            Prob = <span class="hljs-number">0</span>.<span class="hljs-number">5964</span>        case _:            Prob = (                data[<span class="hljs-string">&quot;Table 1&quot;</span>][i - <span class="hljs-number">1</span>][<span class="hljs-string">&quot;总抽中概率&quot;</span>]                - data[<span class="hljs-string">&quot;Table 1&quot;</span>][i - <span class="hljs-number">2</span>][<span class="hljs-string">&quot;总抽中概率&quot;</span>]            )    Prob = Prob / <span class="hljs-number">100</span>    return Probi = len(data[<span class="hljs-string">&quot;Table 1&quot;</span>])sum0 = <span class="hljs-number">0</span>while i &gt; <span class="hljs-number">0</span>:    i -= <span class="hljs-number">1</span>    Extra_num = data[<span class="hljs-string">&quot;Table 1&quot;</span>][i][<span class="hljs-string">&quot;抽数&quot;</span>]    Prob = expectation(data, i + <span class="hljs-number">1</span>)    sum0 += Extra_num * Probprint(<span class="hljs-string">&quot;期望为&quot;</span>, sum0)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h1&gt;原神抽卡期望&lt;/h1&gt;
+&lt;h2 id=&quot;概括&quot;&gt;概括&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：出金期望值为 62.29733203&lt;br&gt;
+&lt;strong&gt;数据来源&lt;/strong&gt;：&lt;a href=&quot;https://www.miyoushe.com/ys</summary>
+    
+    
+    
+    
+    <category term="代码" scheme="https://chunol.top/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+    <category term="原神" scheme="https://chunol.top/tags/%E5%8E%9F%E7%A5%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PowerShell：重新安装 oh-my-posh</title>
+    <link href="https://chunol.top/undefined.html"/>
+    <id>https://chunol.top/undefined.html</id>
+    <published>2024-12-17T16:00:00.000Z</published>
+    <updated>2025-04-14T15:15:10.196Z</updated>
+    
+    <content type="html"><![CDATA[<h1>PowerShell：重新安装 oh-my-posh</h1><h2 id="起因">起因</h2><p>最近打开 PowerShell 时，看到这样一条讯息：</p><p><a href="https://imgse.com/i/pAL4IVx"></a></p><!-- more --><h1>PowerShell：重新安装 oh-my-posh</h1><h2 id="起因-2">起因</h2><p>最近打开 PowerShell 时，看到这样一条讯息：</p><p><a href="https://imgse.com/i/pAL4IVx"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s21.ax1x.com/2024/12/18/pAL4IVx.png" alt="pAL4IVx.png" data-caption="pAL4IVx.png" loading="lazy"></a></p><p>主要是说， oh-my-posh 的 PowerShell module 版本已经停止支持，并已移除了相关功能。</p><p>现在在 PowerShell 上需要使用init启动oh-my-posh。</p><p><em>详情参见<a href="https://ohmyposh.dev/docs/migrating">PowerShell module | Oh My Posh</a></em></p><h2 id="卸载">卸载</h2><h3 id="删除模块的缓存文件">删除模块的缓存文件</h3><figure class="highlight basic"><table><tr><td class="code"><pre><code class="hljs basic"><span class="hljs-comment">Remove-Item $env:POSH_PATH -Force -Recurse</span><br></code></pre></td></tr></table></figure><h3 id="卸载-PowerShell-模块">卸载 PowerShell 模块</h3><figure class="highlight mathematica"><table><tr><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Uninstall</span><span class="hljs-operator">-</span><span class="hljs-built_in">Module</span> <span class="hljs-variable">oh</span><span class="hljs-operator">-</span><span class="hljs-variable">my</span><span class="hljs-operator">-</span><span class="hljs-variable">posh</span> <span class="hljs-operator">-</span><span class="hljs-variable">AllVersions</span><br></code></pre></td></tr></table></figure><h3 id="删除-PowerShell-模块的-PROFILE">删除 PowerShell 模块的 <code>$PROFILE</code></h3><p>打开 <code>$PROFILE</code> 文件</p><figure class="highlight cos"><table><tr><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">open</span> <span class="hljs-built_in">$Profile</span><br></code></pre></td></tr></table></figure><p>在该文件中删去如下命令</p><figure class="highlight coq"><table><tr><td class="code"><pre><code class="hljs coq"><span class="hljs-keyword">Import</span>-<span class="hljs-keyword">Module</span> oh-my-posh<br></code></pre></td></tr></table></figure><p>如果继续使用该命令，启动时将会得到开篇的提示，且启动失败。</p><h2 id="安装">安装</h2><p>推荐 winget 和 Windows 应用商店，安装后会自动添加环境变量。</p><p>这里使用 winget 。</p><h3 id="安装-oh-my-posh-exe">安装 oh-my-posh.exe</h3><p>打开 PowerShell 并运行以下命令：</p><figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">winget <span class="hljs-keyword">install </span><span class="hljs-keyword">JanDeDobbeleer.OhMyPosh </span>-s winget<br></code></pre></td></tr></table></figure><p>这个命令会安装内容如下：</p><ul><li><code>oh-my-posh.exe</code>Windows 可执行文件</li><li><code>themes</code>最新的 Oh My Posh <a href="https://ohmyposh.dev/docs/themes">主题</a></li></ul><p>建议运行如下命令：</p><figure class="highlight nix"><table><tr><td class="code"><pre><code class="hljs nix">$env:Path <span class="hljs-operator">+</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;;C:<span class="hljs-char escape_">\U</span>sers<span class="hljs-char escape_">\u</span>ser<span class="hljs-char escape_">\A</span>ppData<span class="hljs-char escape_">\L</span>ocal<span class="hljs-char escape_">\P</span>rograms<span class="hljs-char escape_">\o</span>h-my-posh<span class="hljs-char escape_">\b</span>in&quot;</span><br></code></pre></td></tr></table></figure><p>这会手动将其添加到环境变量中</p><h2 id="安装-Nerd-字体">安装 Nerd 字体</h2><p>Nerd 字体提供了大量的图标，如果不使用 Nerd 字体的话，主题可能无法正常显示。</p><p>这里介绍两种安装方式：</p><h3 id="用-oh-my-posh-安装">用 oh-my-posh 安装</h3><p><em>注：非管理员模式将安装在用户目录下，管理员模式将会安装在系统目录下。</em></p><p>你可以直接使用 oh-my-posh 中如下命令安装字体</p><figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">oh-<span class="hljs-keyword">my</span>-posh font install<br></code></pre></td></tr></table></figure><p>这将显示可安装的字体列表，比如我想要安装字体<code>meslo</code></p><figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">oh-<span class="hljs-keyword">my</span>-posh font install meslo<br></code></pre></td></tr></table></figure><h3 id="直接下载字体">直接下载字体</h3><p>访问 <a href="https://www.nerdfonts.com/font-downloads">Nerd官网</a> ，安装你喜欢的字体，大部分都可预览。</p><h2 id="修改配置文件">修改配置文件</h2><h3 id="只是启用-oh-my-posh">只是启用 oh-my-posh</h3><p>打开 <code>$PROFILE</code> 文件</p><figure class="highlight cos"><table><tr><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">open</span> <span class="hljs-built_in">$Profile</span><br></code></pre></td></tr></table></figure><p>在该文件中加入</p><figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># 只是启用 oh-my-poshoh-my-posh init pwsh | Invoke-Expression</span><br></code></pre></td></tr></table></figure><h3 id="选择主题">选择主题</h3><p>将刚才的配置稍作修改</p><figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"># 设置 PowerShell 主题oh-my-posh <span class="hljs-keyword">init</span> pwsh --config <span class="hljs-string">&quot;<span class="hljs-variable">$env</span>:POSH_THEMES_PATH\atomic.omp.json&quot;</span> | Invoke-Expression<br></code></pre></td></tr></table></figure><p>其中 “$env:POSH_THEMES_PATH\atomic.omp.json“ 是对官方主题 atomic.omp.json 的调用</p><p>你可以使用如下命令来查看所有的官方主题</p><figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Get-PoshThemes</span><br></code></pre></td></tr></table></figure><p>将你喜欢的主题名称，替换掉这里的 atomic 即可。</p><p>使用如下命令使配置文件立即生效</p><figure class="highlight asciidoc"><table><tr><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">. </span>$PROFILE<br></code></pre></td></tr></table></figure><h2 id="白名单">白名单</h2><p>官方提到：<em>“由于 Oh My Posh 的频繁更新，防病毒软件偶尔会对其进行标记（误报）。 为确保 Oh My Posh 不被阻止，您可以将其报告给您最喜欢的防病毒软件作为误报或为其创建排除项。”</em></p><p>​因此，我们最好把 oh-my-posh 添加到杀毒软件的白名单。</p><p>​由于我只使用Windows10的Windows Defender，故只介绍这一个。</p><h3 id="确定位置">确定位置</h3><p>首先要获取 oh-my-posh.exe 的详细位置</p><p>执行如下命令：</p><figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">(<span class="hljs-built_in">Get-Command</span> <span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span>).Source<br></code></pre></td></tr></table></figure><h3 id="加入白名单">加入白名单</h3><p>打开windows 安全中心 → 病毒和威胁防护 → “病毒和威胁防护”设置(管理设置) → 排除项</p><p>然后添加该文件即可</p>]]></content>
+    
+    
+    <summary type="html">&lt;h1&gt;PowerShell：重新安装 oh-my-posh&lt;/h1&gt;
+&lt;h2 id=&quot;起因&quot;&gt;起因&lt;/h2&gt;
+&lt;p&gt;最近打开 PowerShell 时，看到这样一条讯息：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/pAL4IVx&quot;&gt;&lt;img one</summary>
+    
+    
+    
+    
+    <category term="代码" scheme="https://chunol.top/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+    <category term="Powershell" scheme="https://chunol.top/tags/Powershell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>uigf2.2转uigf4.0(HuTao)</title>
+    <link href="https://chunol.top/undefined.html"/>
+    <id>https://chunol.top/undefined.html</id>
+    <published>2024-08-30T16:00:00.000Z</published>
+    <updated>2025-04-14T15:15:10.199Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="代码库">代码库</h2><p>相关代码被托管在 <a href="https://github.com/337826465/uigf2.2-to-uigf4.0-HuTao-">GitHub</a> 上，详情见README</p><!-- more --><h2 id="代码库-2">代码库</h2><p>相关代码被托管在 <a href="https://github.com/337826465/uigf2.2-to-uigf4.0-HuTao-">GitHub</a> 上，详情见README</p><h2 id="UIGF">UIGF</h2><p><a href="https://uigf.org/zh/">UIGF</a> 即统一标准化的原神数据格式 (Uniformed Interchangeable GachaLog Format standard)</p><p>通俗而言，就是用于传输记录原神祈愿记录的 json 标准</p><h2 id="起因">起因</h2><p>我以前一直在用“提瓦特小助手”的微信小程序，但那个工具导出的标准属于 UIGF-2.2 ，与大部分 PC 端工具不兼容</p><p>我在 PC 端使用的是 <a href="https://hut.ao/zh/">Snap Hutao|胡桃工具箱</a> ，本人所写程序目前仅用于在 Snap Hutao 上的实现。</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;代码库&quot;&gt;代码库&lt;/h2&gt;
+&lt;p&gt;相关代码被托管在 &lt;a href=&quot;https://github.com/337826465/uigf2.2-to-uigf4.0-HuTao-&quot;&gt;GitHub&lt;/a&gt; 上，详情见README&lt;/p&gt;
+&lt;h2 id=&quot;UIGF&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="代码" scheme="https://chunol.top/tags/%E4%BB%A3%E7%A0%81/"/>
+    
+    <category term="项目" scheme="https://chunol.top/tags/%E9%A1%B9%E7%9B%AE/"/>
+    
+    <category term="原神" scheme="https://chunol.top/tags/%E5%8E%9F%E7%A5%9E/"/>
+    
+  </entry>
+  
+</feed>
