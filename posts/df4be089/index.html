@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="zh"><head>
+<title>PowerShell：重新安装 oh-my-posh - Chunol的博客</title>
+<meta charset="UTF-8">
+<meta name="keywords" content="Nexmoe，生活，富强，民主，文明，和谐">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta name="description" content="起因 最近打开 PowerShell 时，看到这样一条讯息：  主要是说， oh-my-posh 的 PowerShell module 版本已经停止支持，并已移除了相关功能。 现在在 PowerShell 上需要使用init启动oh-my-posh。 详情参见PowerShell module | Oh My Posh 卸载 删除模块的缓存文件 Remove-Item $env:POSH_PAT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PowerShell：重新安装 oh-my-posh">
+<meta property="og:url" content="https://chunol.top/posts/df4be089/index.html">
+<meta property="og:site_name" content="Chunol的博客">
+<meta property="og:description" content="起因 最近打开 PowerShell 时，看到这样一条讯息：  主要是说， oh-my-posh 的 PowerShell module 版本已经停止支持，并已移除了相关功能。 现在在 PowerShell 上需要使用init启动oh-my-posh。 详情参见PowerShell module | Oh My Posh 卸载 删除模块的缓存文件 Remove-Item $env:POSH_PAT">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s21.ax1x.com/2024/12/18/pAL4IVx.png">
+<meta property="article:published_time" content="2024-12-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-14T18:24:18.683Z">
+<meta property="article:author" content="Chunol">
+<meta property="article:tag" content="代码">
+<meta property="article:tag" content="Powershell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s21.ax1x.com/2024/12/18/pAL4IVx.png">
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1744655744152">
+
+<link rel="stylesheet" href="/css/style.css?v=1744655744152">
+
+
+
+
+    
+        <link rel="stylesheet" href="/custom.css?v=1744655744152">
+    
+
+
+
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+<script src="/lib/lax.min.js" async></script>
+
+
+<script async src="/js/app.js?v=1744655744152"></script>
+
+ 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Chunol的博客" type="application/atom+xml">
+</head><body class="nexmoe mdui-drawer-body-left"><div id="nexmoe-background"><div class="nexmoe-bg" style="background-image: url(https://s21.ax1x.com/2025/04/14/pEWIlvR.jpg)"></div><div class="mdui-appbar mdui-shadow-0"><div class="mdui-toolbar"><a class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: &#039;#drawer&#039;, swipe: true}" title="menu"><i class="mdui-icon nexmoefont icon-menu"></i></a><div class="mdui-toolbar-spacer"></div><a class="mdui-btn mdui-btn-icon" href="/" title="Chunol"><img src="https://s21.ax1x.com/2025/04/14/pEWIM8J.jpg" alt="Chunol"></a></div></div></div><div id="nexmoe-header"><div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Chunol">
+            <img src="https://s21.ax1x.com/2025/04/14/pEWIM8J.jpg" alt="Chunol" alt="Chunol">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>4</div>
+        <div><span>标签</span>3</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/donate.html" title="给我赞助">
+            <i class="mdui-list-item-icon nexmoefont icon-coffee"></i>
+            <div class="mdui-list-item-content">
+                给我赞助
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博主">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博主
+            </div>
+        </a>
+        
+    </div>
+    
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://qm.qq.com/q/PFLaC2E9C8"
+			target="_blank"
+			mdui-tooltip="{content: 'QQ群'}"
+			style="
+				color: rgb(249, 174, 8);
+				background-color: rgba(249, 174, 8, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-QQ"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://space.bilibili.com/364856348"
+			target="_blank"
+			mdui-tooltip="{content: '哔哩哔哩'}"
+			style="
+				color: rgb(231, 106, 141);
+				background-color: rgba(231, 106, 141, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-bilibili"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://github.com/Chunol"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://www.zhihu.com/people/qing-xia-85-93"
+			target="_blank"
+			mdui-tooltip="{content: '知乎'}"
+			style="
+				color: rgb(30, 136, 229);
+				background-color: rgba(30, 136, 229, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-zhihu"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://x.com/Chunol_123"
+			target="_blank"
+			mdui-tooltip="{content: 'Twitter'}"
+			style="
+				color: rgb(59, 151, 239);
+				background-color: rgba(59, 151, 239, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-twitter"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://chunol.top/atom.xml"
+			target="_blank"
+			mdui-tooltip="{content: 'RSS'}"
+			style="
+				color: rgb(247, 132, 34);
+				background-color: rgba(247, 132, 34, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-rss"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Powershell/" style="font-size: 10px;">Powershell</a> <a href="/tags/%E4%BB%A3%E7%A0%81/" style="font-size: 20px;">代码</a> <a href="/tags/%E5%8E%9F%E7%A5%9E/" style="font-size: 15px;">原神</a>
+    </div>
+    
+  </div>
+
+    
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/posts/807d6c66/">原神抽卡期望</a>
+          </li>
+        
+          <li>
+            <a href="/posts/dd7127ce/">简要梳理</a>
+          </li>
+        
+          <li>
+            <a href="/posts/df4be089/">PowerShell：重新安装 oh-my-posh</a>
+          </li>
+        
+          <li>
+            <a href="/posts/100692e8/">uigf2.2转uigf4.0(HuTao)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+        
+   
+    <div class="nexmoe-copyright">
+        &copy; 2025 Chunol
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+<img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a>
+
+    </div>
+</div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover"> 
+            <img src="https://s21.ax1x.com/2025/04/14/pEWIlvR.jpg" alt="PowerShell：重新安装 oh-my-posh" loading="lazy">
+            <h1>PowerShell：重新安装 oh-my-posh</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2024年12月18日</a>
+        
+        
+    <a><i class="nexmoefont icon-areachart"></i>约758字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要2分钟</a>
+
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h2 id="起因">起因</h2>
+<p>最近打开 PowerShell 时，看到这样一条讯息：</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pAL4IVx"><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s21.ax1x.com/2024/12/18/pAL4IVx.png" alt="pAL4IVx.png" data-caption="pAL4IVx.png" loading="lazy"></a></p>
+<p>主要是说， oh-my-posh 的 PowerShell module 版本已经停止支持，并已移除了相关功能。</p>
+<p>现在在 PowerShell 上需要使用init启动oh-my-posh。</p>
+<p><em>详情参见<a target="_blank" rel="noopener" href="https://ohmyposh.dev/docs/migrating">PowerShell module | Oh My Posh</a></em></p>
+<h2 id="卸载">卸载</h2>
+<h3 id="删除模块的缓存文件">删除模块的缓存文件</h3>
+<figure class="highlight basic"><table><tr><td class="code"><pre><code class="hljs basic"><span class="hljs-comment">Remove-Item $env:POSH_PATH -Force -Recurse</span><br></code></pre></td></tr></table></figure>
+<h3 id="卸载-PowerShell-模块">卸载 PowerShell 模块</h3>
+<figure class="highlight mathematica"><table><tr><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Uninstall</span><span class="hljs-operator">-</span><span class="hljs-built_in">Module</span> <span class="hljs-variable">oh</span><span class="hljs-operator">-</span><span class="hljs-variable">my</span><span class="hljs-operator">-</span><span class="hljs-variable">posh</span> <span class="hljs-operator">-</span><span class="hljs-variable">AllVersions</span><br></code></pre></td></tr></table></figure>
+<h3 id="删除-PowerShell-模块的-PROFILE">删除 PowerShell 模块的 <code>$PROFILE</code></h3>
+<p>打开 <code>$PROFILE</code> 文件</p>
+<figure class="highlight cos"><table><tr><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">open</span> <span class="hljs-built_in">$Profile</span><br></code></pre></td></tr></table></figure>
+<p>在该文件中删去如下命令</p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><code class="hljs coq"><span class="hljs-keyword">Import</span>-<span class="hljs-keyword">Module</span> oh-my-posh<br></code></pre></td></tr></table></figure>
+<p>如果继续使用该命令，启动时将会得到开篇的提示，且启动失败。</p>
+<h2 id="安装">安装</h2>
+<p>推荐 winget 和 Windows 应用商店，安装后会自动添加环境变量。</p>
+<p>这里使用 winget 。</p>
+<h3 id="安装-oh-my-posh-exe">安装 oh-my-posh.exe</h3>
+<p>打开 PowerShell 并运行以下命令：</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">winget <span class="hljs-keyword">install </span><span class="hljs-keyword">JanDeDobbeleer.OhMyPosh </span>-s winget<br></code></pre></td></tr></table></figure>
+<p>这个命令会安装内容如下：</p>
+<ul>
+<li><code>oh-my-posh.exe</code>Windows 可执行文件</li>
+<li><code>themes</code>最新的 Oh My Posh <a target="_blank" rel="noopener" href="https://ohmyposh.dev/docs/themes">主题</a></li>
+</ul>
+<p>建议运行如下命令：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><code class="hljs nix">$env:Path <span class="hljs-operator">+</span><span class="hljs-operator">=</span> <span class="hljs-string">&quot;;C:<span class="hljs-char escape_">\U</span>sers<span class="hljs-char escape_">\u</span>ser<span class="hljs-char escape_">\A</span>ppData<span class="hljs-char escape_">\L</span>ocal<span class="hljs-char escape_">\P</span>rograms<span class="hljs-char escape_">\o</span>h-my-posh<span class="hljs-char escape_">\b</span>in&quot;</span><br></code></pre></td></tr></table></figure>
+<p>这会手动将其添加到环境变量中</p>
+<h2 id="安装-Nerd-字体">安装 Nerd 字体</h2>
+<p>Nerd 字体提供了大量的图标，如果不使用 Nerd 字体的话，主题可能无法正常显示。</p>
+<p>这里介绍两种安装方式：</p>
+<h3 id="用-oh-my-posh-安装">用 oh-my-posh 安装</h3>
+<p><em>注：非管理员模式将安装在用户目录下，管理员模式将会安装在系统目录下。</em></p>
+<p>你可以直接使用 oh-my-posh 中如下命令安装字体</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">oh-<span class="hljs-keyword">my</span>-posh font install<br></code></pre></td></tr></table></figure>
+<p>这将显示可安装的字体列表，比如我想要安装字体<code>meslo</code></p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">oh-<span class="hljs-keyword">my</span>-posh font install meslo<br></code></pre></td></tr></table></figure>
+<h3 id="直接下载字体">直接下载字体</h3>
+<p>访问 <a target="_blank" rel="noopener" href="https://www.nerdfonts.com/font-downloads">Nerd官网</a> ，安装你喜欢的字体，大部分都可预览。</p>
+<h2 id="修改配置文件">修改配置文件</h2>
+<h3 id="只是启用-oh-my-posh">只是启用 oh-my-posh</h3>
+<p>打开 <code>$PROFILE</code> 文件</p>
+<figure class="highlight cos"><table><tr><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">open</span> <span class="hljs-built_in">$Profile</span><br></code></pre></td></tr></table></figure>
+<p>在该文件中加入</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># 只是启用 oh-my-poshoh-my-posh init pwsh | Invoke-Expression</span><br></code></pre></td></tr></table></figure>
+<h3 id="选择主题">选择主题</h3>
+<p>将刚才的配置稍作修改</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"># 设置 PowerShell 主题oh-my-posh <span class="hljs-keyword">init</span> pwsh --config <span class="hljs-string">&quot;<span class="hljs-variable">$env</span>:POSH_THEMES_PATH\atomic.omp.json&quot;</span> | Invoke-Expression<br></code></pre></td></tr></table></figure>
+<p>其中 “$env:POSH_THEMES_PATH\atomic.omp.json“ 是对官方主题 atomic.omp.json 的调用</p>
+<p>你可以使用如下命令来查看所有的官方主题</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Get-PoshThemes</span><br></code></pre></td></tr></table></figure>
+<p>将你喜欢的主题名称，替换掉这里的 atomic 即可。</p>
+<p>使用如下命令使配置文件立即生效</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">. </span>$PROFILE<br></code></pre></td></tr></table></figure>
+<h2 id="白名单">白名单</h2>
+<p>官方提到：<em>“由于 Oh My Posh 的频繁更新，防病毒软件偶尔会对其进行标记（误报）。 为确保 Oh My Posh 不被阻止，您可以将其报告给您最喜欢的防病毒软件作为误报或为其创建排除项。”</em></p>
+<p>​因此，我们最好把 oh-my-posh 添加到杀毒软件的白名单。</p>
+<p>​由于我只使用Windows10的Windows Defender，故只介绍这一个。</p>
+<h3 id="确定位置">确定位置</h3>
+<p>首先要获取 oh-my-posh.exe 的详细位置</p>
+<p>执行如下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell">(<span class="hljs-built_in">Get-Command</span> <span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span>).Source<br></code></pre></td></tr></table></figure>
+<h3 id="加入白名单">加入白名单</h3>
+<p>打开windows 安全中心 → 病毒和威胁防护 → “病毒和威胁防护”设置(管理设置) → 排除项</p>
+<p>然后添加该文件即可</p>
+
+    <p><img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExd212cG1kdjJneTB4dWxkajV2b2dmMDdiYXZkaXdjZTQybHNkZzdpZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VUC9YdLSnKuJy/giphy.gif" loading="lazy"></p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Chunol<br>
+        <strong>本文链接：</strong><a href="https://chunol.top/posts/df4be089/" title="https:&#x2F;&#x2F;chunol.top&#x2F;posts&#x2F;df4be089&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;chunol.top&#x2F;posts&#x2F;df4be089&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Powershell/" rel="tag">Powershell</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E4%BB%A3%E7%A0%81/" rel="tag">代码</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1744655744091"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          请在你的配置文件中设置 slotComment
+
+      </div>
+  
+</div></div><div class="nexmoe-post-right">    <div class="nexmoe-fixed">
+        <div class="nexmoe-tool">
+
+            
+
+            
+            
+            <button class="mdui-fab catalog" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                <div class="nexmoe-toc">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">卸载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%A8%A1%E5%9D%97%E7%9A%84%E7%BC%93%E5%AD%98%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">删除模块的缓存文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD-PowerShell-%E6%A8%A1%E5%9D%97"><span class="toc-number">2.2.</span> <span class="toc-text">卸载 PowerShell 模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4-PowerShell-%E6%A8%A1%E5%9D%97%E7%9A%84-PROFILE"><span class="toc-number">2.3.</span> <span class="toc-text">删除 PowerShell 模块的 $PROFILE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-oh-my-posh-exe"><span class="toc-number">3.1.</span> <span class="toc-text">安装 oh-my-posh.exe</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Nerd-%E5%AD%97%E4%BD%93"><span class="toc-number">4.</span> <span class="toc-text">安装 Nerd 字体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8-oh-my-posh-%E5%AE%89%E8%A3%85"><span class="toc-number">4.1.</span> <span class="toc-text">用 oh-my-posh 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E4%B8%8B%E8%BD%BD%E5%AD%97%E4%BD%93"><span class="toc-number">4.2.</span> <span class="toc-text">直接下载字体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">修改配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E6%98%AF%E5%90%AF%E7%94%A8-oh-my-posh"><span class="toc-number">5.1.</span> <span class="toc-text">只是启用 oh-my-posh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E4%B8%BB%E9%A2%98"><span class="toc-number">5.2.</span> <span class="toc-text">选择主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BD%E5%90%8D%E5%8D%95"><span class="toc-number">6.</span> <span class="toc-text">白名单</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E4%BD%8D%E7%BD%AE"><span class="toc-number">6.1.</span> <span class="toc-text">确定位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%99%BD%E5%90%8D%E5%8D%95"><span class="toc-number">6.2.</span> <span class="toc-text">加入白名单</span></a></li></ol></li></ol>
+                </div>
+            </button>
+            
+
+            
+
+            <a href="#nexmoe-content" class="backtop toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+        </div>
+    </div>
+</div></div><div id="nexmoe-footer"><!--!--></div><div id="nexmoe-search-space"><div class="search-container"><div class="search-header"><div class="search-input-container"><input class="search-input" type="text" placeholder="搜索" onInput="sinput();"></div><a class="search-close" onclick="sclose();">×</a></div><div class="search-body"></div></div></div><div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+</div></body></html>
