@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s21.ax1x.com/2024/12/18/pAL4IVx.png">
 <meta property="article:published_time" content="2024-12-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-14T18:35:43.979Z">
+<meta property="article:modified_time" content="2025-04-20T15:39:15.669Z">
 <meta property="article:author" content="Chunol">
 <meta property="article:tag" content="代码">
 <meta property="article:tag" content="Powershell">
@@ -26,15 +26,15 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1744687487996">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1745163983199">
 
-<link rel="stylesheet" href="/css/style.css?v=1744687487996">
+<link rel="stylesheet" href="/css/style.css?v=1745163983199">
 
 
 
 
     
-        <link rel="stylesheet" href="/custom.css?v=1744687487996">
+        <link rel="stylesheet" href="/custom.css?v=1745163983199">
     
 
 
@@ -44,7 +44,7 @@
 <script src="/lib/lax.min.js" async></script>
 
 
-<script async src="/js/app.js?v=1744687487996"></script>
+<script async src="/js/app.js?v=1745163983199"></script>
 
  
 
@@ -348,12 +348,12 @@
 <h2 id="修改配置文件">修改配置文件</h2>
 <h3 id="只是启用-oh-my-posh">只是启用 oh-my-posh</h3>
 <p>打开 <code>$PROFILE</code> 文件</p>
-<figure class="highlight cos"><table><tr><td class="code"><pre><code class="hljs cos"><span class="hljs-keyword">open</span> <span class="hljs-built_in">$Profile</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">notepad</span> <span class="hljs-variable">$Profile</span><br></code></pre></td></tr></table></figure>
 <p>在该文件中加入</p>
-<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta"># 只是启用 oh-my-poshoh-my-posh init pwsh | Invoke-Expression</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 只是启用 oh-my-posh</span><br><span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> init pwsh | <span class="hljs-built_in">Invoke-Expression</span><br></code></pre></td></tr></table></figure>
 <h3 id="选择主题">选择主题</h3>
 <p>将刚才的配置稍作修改</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"># 设置 PowerShell 主题oh-my-posh <span class="hljs-keyword">init</span> pwsh --config <span class="hljs-string">&quot;<span class="hljs-variable">$env</span>:POSH_THEMES_PATH\atomic.omp.json&quot;</span> | Invoke-Expression<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 设置 PowerShell 主题</span><br><span class="hljs-built_in">oh</span><span class="hljs-literal">-my-posh</span> init pwsh <span class="hljs-literal">--config</span> <span class="hljs-string">&quot;<span class="hljs-variable">$env:POSH_THEMES_PATH</span>\atomic.omp.json&quot;</span> | <span class="hljs-built_in">Invoke-Expression</span><br></code></pre></td></tr></table></figure>
 <p>其中 “$env:POSH_THEMES_PATH\atomic.omp.json“ 是对官方主题 atomic.omp.json 的调用</p>
 <p>你可以使用如下命令来查看所有的官方主题</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Get-PoshThemes</span><br></code></pre></td></tr></table></figure>
@@ -362,8 +362,8 @@
 <figure class="highlight asciidoc"><table><tr><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">. </span>$PROFILE<br></code></pre></td></tr></table></figure>
 <h2 id="白名单">白名单</h2>
 <p>官方提到：<em>“由于 Oh My Posh 的频繁更新，防病毒软件偶尔会对其进行标记（误报）。 为确保 Oh My Posh 不被阻止，您可以将其报告给您最喜欢的防病毒软件作为误报或为其创建排除项。”</em></p>
-<p>​因此，我们最好把 oh-my-posh 添加到杀毒软件的白名单。</p>
-<p>​由于我只使用Windows10的Windows Defender，故只介绍这一个。</p>
+<p>因此，我们最好把 oh-my-posh 添加到杀毒软件的白名单。</p>
+<p>由于我只使用Windows10的Windows Defender，故只介绍这一个。</p>
 <h3 id="确定位置">确定位置</h3>
 <p>首先要获取 oh-my-posh.exe 的详细位置</p>
 <p>执行如下命令：</p>
@@ -398,7 +398,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1744687487936"></script>
+    <script async src="/js/copy-codeblock.js?v=1745163983130"></script>
   
 
   
